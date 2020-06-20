@@ -37,8 +37,7 @@ namespace Invoice
         {
             InitializeComponent();
             Application.Current.MainWindow.WindowState= WindowState.Maximized;
-            InvoicesTables tables = new InvoicesTables();
-            tables.Show();
+          
            
             _dataService = new DataService();
             _dataContext = new DataContext();
@@ -313,6 +312,13 @@ namespace Invoice
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void showInvoicesTableButton_Click(object sender, RoutedEventArgs e)
+        {
+            InvoicesTables tables = new InvoicesTables();
+            tables.Show();
+
         }
     }
 

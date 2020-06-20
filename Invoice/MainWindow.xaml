@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Invoice"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-  
+
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -74,8 +74,8 @@
 
             </Grid>
 
-            
-            
+
+
 
             <!--DataGridView Row Grid-->
 
@@ -165,6 +165,7 @@
                 <Button Grid.Row="0" Grid.Column="1" Click="SaveButton_Click"  >save</Button>
                 <Button Grid.Row="0" Grid.Column="3" Click="DeleteButton_Click" >delete</Button>
             </Grid>
+            <Button x:Name="showInvoicesTableButton" Content="Invoices" HorizontalAlignment="Left" Margin="75,36,0,0" Grid.Row="6" VerticalAlignment="Top" Click="showInvoicesTableButton_Click" RenderTransformOrigin="-3.016,0.705" Height="47" Width="117"/>
 
 
         </Grid>
