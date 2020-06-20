@@ -1,0 +1,177 @@
+﻿<Window x:Class="Invoice.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Invoice"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+  
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".2*" />
+                <RowDefinition Height=".3*" />
+                <RowDefinition Height=".2*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height=".4*" />
+                <RowDefinition Height=".3*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--title textblock-->
+            <TextBlock FontWeight="Bold" FontSize="10" Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center">Invoice</TextBlock>
+
+            <!--invoice details grid-->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" > Invoice Number</TextBlock>
+                <TextBox x:Name="invoiceNumberTexbox" Grid.Row="0" Grid.Column="1" BorderThickness="1" Margin="40,4,120,4" TextAlignment="Center"  IsEnabled="False"></TextBox>
+
+                <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"> invoice Date</TextBlock>
+                <TextBox Name="InvoiceDateTextbox" Grid.Row="0" Grid.Column="3" Margin="40,4,120,4" TextAlignment="Center" IsEnabled="False"></TextBox>
+
+
+                <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">store</TextBlock>
+                <ComboBox Name="storesDropdownList" Grid.Row="1" Grid.Column="1" Margin="40,4,120,4" SelectionChanged="storesDropdownList_SelectionChanged" ></ComboBox>
+            </Grid>
+
+
+            <!--inserting Data Row-->
+            <Grid Grid.Row="2" Margin="28,15,28,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Name="itemsDropdownList" Grid.Column="0" SelectionChanged="itemsDropdownList_SelectionChanged"></ComboBox>
+                <ComboBox Name="unitsDropdownList" Grid.Column="1" SelectionChanged="unitsDropdownList_SelectionChanged"></ComboBox>
+                <TextBox x:Name="priceTextbox" Grid.Column="2" TextAlignment="Center" IsEnabled="False"></TextBox>
+                <TextBox x:Name="quantityTextbox" Grid.Column="3" TextAlignment="Center" TextChanged="quantityTextbox_TextChanged" PreviewTextInput="NumberValidationTextBox"></TextBox>
+                <TextBox x:Name="totalTextbox" Grid.Column="4" TextAlignment="Center" IsEnabled="False"></TextBox>
+                <TextBox x:Name="discountTextbox" Grid.Column="5" TextAlignment="Center" TextChanged="discountTextbox_TextChanged" PreviewTextInput="NumberValidationTextBox"></TextBox>
+                <TextBox x:Name="netTextbox" Grid.Column="6" TextAlignment="Center" IsEnabled="False"></TextBox>
+
+            </Grid>
+
+            
+            
+
+            <!--DataGridView Row Grid-->
+
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height=".1*"/>
+                    <RowDefinition Height=".1*"/>
+                </Grid.RowDefinitions>
+
+
+                <DataGrid Grid.Row="0" Margin="28,0,28,14" Name="dataGridview"  >
+
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="Item" Binding="{Binding Path=Item}"/>
+                        <DataGridTextColumn Width="*" Header="Unit" Binding="{Binding Path=Unit}"/>
+                        <DataGridTextColumn Width="*" Header="Price" Binding="{Binding Path=Price}"/>
+                        <DataGridTextColumn Width="*" Header="Quantity" Binding="{Binding Path=Quantity}"/>
+                        <DataGridTextColumn Width="*" Header="Total" Binding="{Binding Path=Total}"/>
+                        <DataGridTextColumn Width="*" Header="Discount" Binding="{Binding Path=Discount}"/>
+                        <DataGridTextColumn Width="*" Header="Net" Binding="{Binding Path=Net}"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width=".1*"/>
+                        <ColumnDefinition Width=".03*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button   Grid.Column="1"  Click="AddNewRowButton_Click">add</Button>
+                </Grid>
+
+
+            </Grid>
+
+
+
+
+
+            <!--total invoice row-->
+            <Grid Grid.Row="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width=".5*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"  VerticalAlignment="Center"> Total</TextBlock>
+                <TextBox x:Name="invoiceTotalTextbox" Grid.Row="0" Grid.Column="2" BorderThickness="1" Margin="40,4,120,4" TextAlignment="Center" IsEnabled="False">0</TextBox>
+
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"  VerticalAlignment="Center"> Taxes</TextBlock>
+                <TextBox x:Name="invoiceTaxesTextbox" Grid.Row="1" Grid.Column="2" BorderThickness="1"  Margin="40,4,120,4" TextAlignment="Center" IsEnabled="False">0</TextBox>
+
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right"  VerticalAlignment="Center"> Net</TextBlock>
+                <TextBox x:Name="invoiceNetTextbox" Grid.Row="2" Grid.Column="2" BorderThickness="1"  Margin="40,4,120,4" TextAlignment="Center" IsEnabled="False">0</TextBox>
+
+
+            </Grid>
+
+
+            <!--buttons grid row-->
+            <Grid Grid.Row="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width=".15*"/>
+                    <ColumnDefinition Width=".15*"/>
+                    <ColumnDefinition Width=".15*"/>
+                    <ColumnDefinition Width=".5*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Row="0" Grid.Column="1" Click="SaveButton_Click"  >save</Button>
+                <Button Grid.Row="0" Grid.Column="3" Click="DeleteButton_Click" >delete</Button>
+            </Grid>
+
+
+        </Grid>
+
+
+
+
+
+    </Grid>
+</Window>
